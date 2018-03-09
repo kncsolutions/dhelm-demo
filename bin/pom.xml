@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>in.kncsolutions.dhelm.demo</groupId>
+  <artifactId>dhelm-demo</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  <name>Custom dhelm project</name>
+  <url>https://www.dhelm.kncsolutions.in</url>
+  <developers>
+  <developer>
+      <name>Pallav Nandi Chaudhuri</name>
+      <email>developer@kncsolutions.in</email>
+      <organization>Knc Solutions Private Limited</organization>
+      <organizationUrl>https://www.kncsolutions.in</organizationUrl>
+    </developer>
+  </developers>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<javafx.version>8.0</javafx.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>in.kncsolutions.dhelm.mathcal</groupId>
+      <artifactId>dhelm-mathcal</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+   <dependency>
+      <groupId>in.kncsolutions.dhelm.exceptions</groupId>
+      <artifactId>dhelm-exceptions</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+   <dependency>
+      <groupId>in.kncsolutions.dhelm.candlepattern</groupId>
+      <artifactId>dhelm-candlepattern</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+    <dependency>
+      <groupId>in.kncsolutions.dhelm.candlebasic</groupId>
+      <artifactId>dhelm-candlebasic</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+	<dependency>
+	  <groupId>in.kncsolutions.dhelm.demoaccess</groupId>
+      <artifactId>dhelm-demoaccess</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+	 </dependency>
+	 <dependency>
+      <groupId>in.kncsolutions.dhelm.uicomponents</groupId>
+      <artifactId>dhelm-uicomponents</artifactId>
+      <version>1.0</version>
+    </dependency>
+	<dependency>
+      <groupId>in.kncsolutions.dhelm.uitemplate</groupId>
+      <artifactId>dhelm-uitemplate</artifactId>
+      <version>1.0.0</version>
+	</dependency> 
+  	<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>javafx</artifactId>
+			<version>${javafx.version}</version>
+			<systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+	<plugin>
+	<!-- copy all dependencies of your app to target folder-->
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-dependency-plugin</artifactId>
+	  <version>3.0.2</version>
+		<executions>
+		  <execution>
+			 <id>copy-dependencies</id>
+    		 <phase>package</phase>
+			   <configuration>
+				<overWriteReleases>false</overWriteReleases>
+				<overWriteSnapshots>false</overWriteSnapshots>
+				<overWriteIfNewer>true</overWriteIfNewer>
+			  </configuration>
+				<goals>
+				 <goal>copy-dependencies</goal>
+			  </goals>
+			</execution>
+		</executions>
+	   </plugin>      
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+             <source>1.8</source>
+             <target>1.8</target>
+          </configuration>
+        </plugin>        
+       <plugin>
+           <groupId>com.zenjava</groupId>
+           <artifactId>javafx-maven-plugin</artifactId>
+           <version>8.8.3</version>
+           <configuration>
+		   <archive>
+		   <manifest>
+		   <addClasspath>true</addClasspath> 
+		      <mainClass>in.kncsolutions.dhelm.demo.App</mainClass>
+            </manifest>		               
+			</archive>
+           </configuration>
+        </plugin>
+	
+    </plugins> 
+    <resources>
+     <resource>
+       <directory>src/main/resources</directory>
+     </resource>
+   </resources>   
+</build>
+   
+</project>

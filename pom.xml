@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>in.kncsolutions.dhelm.demo</groupId>
+  <artifactId>dhelm-demo</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  <name>Custom dhelm project</name>
+  <url>https://www.dhelm.kncsolutions.in</url>
+  <developers>
+  <developer>
+      <name>Pallav Nandi Chaudhuri</name>
+      <email>developer@kncsolutions.in</email>
+      <organization>Knc Solutions Private Limited</organization>
+      <organizationUrl>https://www.kncsolutions.in</organizationUrl>
+    </developer>
+  </developers>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<javafx.version>8.0</javafx.version>
+	<wrapper.location>${project.build.directory}/generated-resources/appassembler/jsw/dhelmDemo</wrapper.location>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>1.2.17</version>
+ </dependency>
+    <dependency>
+      <groupId>in.kncsolutions.dhelm.mathcal</groupId>
+      <artifactId>dhelm-mathcal</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
+	</dependency>
+   <dependency>
+      <groupId>in.kncsolutions.dhelm.exceptions</groupId>
+      <artifactId>dhelm-exceptions</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+   <dependency>
+      <groupId>in.kncsolutions.dhelm.candlepattern</groupId>
+      <artifactId>dhelm-candlepattern</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+    <dependency>
+      <groupId>in.kncsolutions.dhelm.candlebasic</groupId>
+      <artifactId>dhelm-candlebasic</artifactId>
+      <version>1.0.3</version>
+	</dependency>
+   <dependency>
+      <groupId>in.kncsolutions.dhelm.uicomponents</groupId>
+      <artifactId>dhelm-uicomponents</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>   
+	<dependency>
+	  <groupId>in.kncsolutions.dhelm.demoaccess</groupId>
+      <artifactId>dhelm-demoaccess</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+	 </dependency>
+	<dependency>
+      <groupId>in.kncsolutions.dhelm.uitemplate</groupId>
+      <artifactId>dhelm-uitemplate</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+	</dependency> 
+  	<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>javafx</artifactId>
+			<version>${javafx.version}</version>
+			<systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+	<plugin>
+	<!-- copy all dependencies of your app to target folder-->
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-dependency-plugin</artifactId>
+	  <version>3.0.2</version>
+		<executions>
+		  <execution>
+			 <id>copy-dependencies</id>
+    		 <phase>package</phase>
+			   <configuration>
+				<overWriteReleases>false</overWriteReleases>
+				<overWriteSnapshots>false</overWriteSnapshots>
+				<overWriteIfNewer>true</overWriteIfNewer>
+			  </configuration>
+				<goals>
+				 <goal>copy-dependencies</goal>
+			  </goals>
+			</execution>
+		</executions>
+	   </plugin>      
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.0</version>
+          <configuration>
+             <source>1.8</source>
+             <target>1.8</target>
+          </configuration>
+        </plugin>        
+        <plugin>
+           <groupId>com.zenjava</groupId>
+           <artifactId>javafx-maven-plugin</artifactId>
+           <version>8.8.3</version>
+           <configuration>
+		   <archive>
+		   <manifest>
+		   <addClasspath>true</addClasspath> 		      
+            </manifest>		               
+			</archive>
+           </configuration>
+        </plugin>
+	    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>copy-resources</id>
+                <phase>process-classes</phase>
+                <goals>
+                    <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/conf</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${project.basedir}/src/main/resources</directory>
+                        </resource>
+                    </resources>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+            <excludes>
+                <exclude>**/*.yml</exclude>
+                <exclude>**/*.txt</exclude>
+            </excludes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+            <execution>
+            <id>generate-jsw-scripts</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>assemble</goal>
+                </goals>
+        <configuration>
+          <repositoryLayout>flat</repositoryLayout>
+          <repositoryName>lib</repositoryName>
+          <!-- Set the target configuration directory to be used in the bin scripts -->
+          <configurationDirectory>conf</configurationDirectory>
+          <!-- Copy the contents from "/src/main/config" to the target
+               configuration directory in the assembled application -->
+          <copyConfigurationDirectory>true</copyConfigurationDirectory>
+          <!-- Include the target configuration directory in the beginning of
+               the classpath declaration in the bin scripts -->
+          <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+          <!-- set alternative assemble directory -->
+          <assembleDirectory>${wrapper.location}</assembleDirectory>
+          <generateRepository>true</generateRepository>
+          <binFileExtensions>
+           <unix>.sh</unix>
+           <windows>.bat</windows>
+         </binFileExtensions>
+          <!-- Extra JVM arguments that will be included in the bin scripts -->
+          <extraJvmArguments> -Dprism.order=sw -Dlog4j.properties=true</extraJvmArguments>
+          <licenseHeaderFile>ext/licenseHeader.txt</licenseHeaderFile>
+         
+          <!-- Generate bin scripts for windows and unix pr default -->
+          <platforms>
+            <platform>windows</platform>
+            <platform>unix</platform>
+          </platforms>
+          <programs>
+            <program>
+              <mainClass>in.kncsolutions.dhelm.demo.App</mainClass>
+              <id>dhelmDemoWindows</id>
+              <!-- Only generate windows bat script for this application -->
+              <platforms>
+                <platform>windows</platform>
+              </platforms>
+            </program>
+            <program>
+              <mainClass>in.kncsolutions.dhelm.demo.App</mainClass>
+              <id>dhelmDemoLinux</id>
+              <!-- Only generate unix shell script for this application -->
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+            </program>
+          </programs>
+        </configuration>
+        </execution>
+       </executions>
+      </plugin>
+      <plugin>
+      <groupId>in.kncsolutions.dhelm.launcher</groupId>
+      <artifactId>launcher-maven-plugin</artifactId>
+      <version>1.0.0-SNAPSHOT</version>     
+       <executions>
+            <execution>
+            <id>sex</id>
+             <phase>package</phase>  
+              <goals>
+              <goal>gen</goal>            
+             </goals>           
+                <configuration>
+                 <outputDirectory>${wrapper.location}/bin</outputDirectory>
+                 <iconPath>conf/test.png</iconPath>
+                 <version>1.0-snapshot</version>
+                 <fileName>DhelmDemoLinux</fileName>
+                 <appName>DhelmDemoLinux</appName>
+                 <genericName>Automatic Decision Tool</genericName>
+                 <executableFile>dhelmDemoLinux.sh</executableFile>
+                 <comment>Decision hypothesis engineered logically and mathematically</comment>
+               </configuration>
+              
+            </execution>
+       </executions>
+      </plugin>
+   <!--  <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+            <execution>
+                <id>generate-jsw-scripts</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>generate-daemons</goal>
+                </goals>
+                <configuration>
+                    <repositoryLayout>flat</repositoryLayout>
+                    <configurationDirectory>conf</configurationDirectory>
+                    <daemons>
+                        <daemon>
+                            <id>dhelmDemo</id>
+                            <wrapperMainClass>org.tanukisoftware.wrapper.WrapperSimpleApp</wrapperMainClass>
+                            <mainClass>in.kncsolutions.dhelm.demo.App</mainClass>
+                           
+                            <platforms>
+                                <platform>jsw</platform>                                
+                            </platforms>
+                            <generatorConfigurations>
+                                <generatorConfiguration>
+                                    <generator>jsw</generator>
+                                    <configuration>
+                                        <property>
+                                            <name>wrapper.java.additional.1</name>
+                                            <value>-Xloggc:logs/gclog</value>
+                                        </property>
+                                        <property>
+                                            <name>wrapper.java.additional.2</name>
+                                            <value>-XX:MaxDirectMemorySize=256M</value>
+                                        </property>
+                                        <property>
+                                            <name>configuration.directory.in.classpath.first</name>
+                                            <value>conf</value>
+                                        </property>
+                                        <property>
+                                            <name>set.default.REPO_DIR</name>
+                                            <value>lib</value>
+                                        </property>
+                                        <property>
+                                            <name>wrapper.logfile</name>
+                                            <value>logs/wrapper.log</value>
+                                        </property>
+                                    </configuration>
+                                    <includes>
+                                        <include>linux-x86-32</include>
+                                        <include>linux-x86-64</include>
+                                    </includes>
+                                </generatorConfiguration>
+                            </generatorConfigurations>
+                        </daemon>
+                    </daemons>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin> -->
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+            <execution>
+                <id>make-log-dir</id>
+                <phase>package</phase>
+                <configuration>                    
+                    <tasks>
+                        <mkdir dir="${wrapper.location}/logs" />
+                        <copy todir="${wrapper.location}/conf">
+                            <fileset dir="target/conf" />
+                        </copy>
+                        <chmod dir="${wrapper.location}/bin" includes="**/*" perm="0755" />                         
+                    </tasks>
+                </configuration>
+                <goals>
+                    <goal>run</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+    <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+            <descriptor>dep.xml</descriptor>
+            <finalName>DhelmDemo</finalName>
+        </configuration>
+        <executions>
+            <execution>
+                <id>create-archive</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+    </plugins>   
+</build>
+   
+</project>
