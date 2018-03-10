@@ -29,11 +29,16 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
 
 public class DhelmTerminal extends DhelmTerminalTemplate {
-private ExchangeTemplate exTmp;
+   private ExchangeTemplate exTmp;
+   /**
+   * @param t
+   */
 	public DhelmTerminal(TemplateModel t) {
 		super(t);		
 	}
-
+    /**
+     * 
+     */
 	@Override
 	protected void mainToolbarButtonsActions(){
 		try {
@@ -49,11 +54,14 @@ private ExchangeTemplate exTmp;
 		}
 		
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void runAlgorithmOnChange(String algorithm,DCenterPanel dcp,UIMemo uiMem) {
 		if(algorithm.equals("CandleScan")) {
 			StackPane test=new StackPane();
-			CandleScannerOnePass csop=new CandleScannerOnePass(exTmp);
+			CandleScannerOnePass csop=new CandleScannerOnePass(exTmp,uiMem, super.getMainStage());
 			test.getChildren().add(csop.getView());
 			dcp.setParamPane(test);
 		}
@@ -74,7 +82,9 @@ private ExchangeTemplate exTmp;
 		}
 	}
 	
-	
+	/**
+	 * 
+	 */
 	protected void setMainStage() {
 		super.setMainStage();
 	}

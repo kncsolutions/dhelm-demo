@@ -35,6 +35,7 @@ public static int ScanDomain=1;
 public static final String [] AlgoList={"Select","CandleStick Pattern Scan-once","CandleStick Pattern Scan-continuous"};
 private String passToken;
 private DhelmDataAccess ck;
+public static DhelmDataAccess dataAccessController;
 private DhelmTerminal t;
 private TemplateModel tm;
 /**
@@ -60,6 +61,7 @@ public void Execute(){
 private void connectKnct(){
   try {
 	ck=new DhelmDataAccess(passToken);
+	dataAccessController=ck;
   }
   catch(DataException e) {
 	  e.printStackTrace();  	  

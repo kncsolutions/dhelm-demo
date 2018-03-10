@@ -50,6 +50,11 @@
       <artifactId>dhelm-candlepattern</artifactId>
       <version>1.0.3</version>
 	</dependency>
+	<dependency>
+       <groupId>in.kncsolutions.dhelm.candlescanner</groupId>
+       <artifactId>dhelm-candlescanner</artifactId>
+       <version>1.0.0</version>
+    </dependency>
     <dependency>
       <groupId>in.kncsolutions.dhelm.candlebasic</groupId>
       <artifactId>dhelm-candlebasic</artifactId>
