@@ -188,7 +188,7 @@
            <windows>.bat</windows>
          </binFileExtensions>
           <!-- Extra JVM arguments that will be included in the bin scripts -->
-          <extraJvmArguments> -Dprism.order=sw -Dlog4j.properties=true</extraJvmArguments>
+          <extraJvmArguments> -Dlog4j.properties=true</extraJvmArguments>
           <licenseHeaderFile>ext/licenseHeader.txt</licenseHeaderFile>
          
           <!-- Generate bin scripts for windows and unix pr default -->

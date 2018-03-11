@@ -6,11 +6,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -91,7 +86,6 @@
 	<classpathentry kind="var" path="M2_REPO/in/kncsolutions/dhelm/uicomponents/dhelm-uicomponents/1.0/dhelm-uicomponents-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/in/kncsolutions/dhelm/chart/dhelm-chart/1.0/dhelm-chart-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14.jar"/>
-	<classpathentry kind="var" path="M2_REPO/in/kncsolutions/dhelm/uitemplate/dhelm-uitemplate/1.0.0/dhelm-uitemplate-1.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/in/kncsolutions/dhelm/candlescanner/dhelm-candlescanner/1.0.0/dhelm-candlescanner-1.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>

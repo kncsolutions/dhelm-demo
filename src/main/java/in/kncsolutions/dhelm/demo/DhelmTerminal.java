@@ -60,8 +60,10 @@ public class DhelmTerminal extends DhelmTerminalTemplate {
 	@Override
 	public void runAlgorithmOnChange(String algorithm,DCenterPanel dcp,UIMemo uiMem) {
 		if(algorithm.equals("CandleScan")) {
-			StackPane test=new StackPane();
+			StackPane test=new StackPane();			
 			CandleScannerOnePass csop=new CandleScannerOnePass(exTmp,uiMem, super.getMainStage());
+			csop.uiToControl(uiMem);
+			csop.controlOutputUnit();
 			test.getChildren().add(csop.getView());
 			dcp.setParamPane(test);
 		}

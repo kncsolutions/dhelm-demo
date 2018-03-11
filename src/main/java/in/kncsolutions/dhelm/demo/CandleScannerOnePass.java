@@ -20,6 +20,7 @@ import in.kncsolutions.dhelm.databuilder.CandlePatternResult;
 import in.kncsolutions.dhelm.databuilder.StockData;
 import in.kncsolutions.dhelm.demo.candlescanner.CandleScanner;
 import in.kncsolutions.dhelm.demoaccess.DemoVars;
+import in.kncsolutions.dhelm.exceptions.DataException;
 import in.kncsolutions.dhelm.uicomponents.dactions.SaveInFile;
 import in.kncsolutions.dhelm.uicomponents.dcontainers.DPopUp;
 import in.kncsolutions.dhelm.uitemplate.CandleScanTemplate;
@@ -54,7 +55,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 	private Stage stage;
 	private boolean isScanComplete=false;
 	private ComboBox algoSelector;
-	private Tab inputTab,outputTab;
+	private Tab inputTab=new Tab(),outputTab=new Tab();
 	private List<StockData> toScanList=new ArrayList<StockData>();
 	/**
 	 * @param exchangeNames : exchange names in predefined template.
@@ -135,6 +136,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 	public void setScanList(String exchangeID) {
 		if(exchangeID.equals("ABC")||exchangeID.equals("DEF") ) {
 			toScanList.addAll(getStockSymbolList(exchangeID));
+			System.out.println("Scan List size: "+toScanList.size());
 		}
 	
 	}
@@ -145,6 +147,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 	public void disableUIcomponents() {
 		algoSelector.setDisable(true);
 		inputTab.setClosable(false);
+		inputTab.setDisable(true);
 	    inputTab.getContent().setDisable(true);
 	    outputTab.setClosable(false);		
 	}
@@ -170,7 +173,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 	 */
 	@Override
 	public void doScan() {
-		resultListBullish.clear();
+		  resultListBullish.clear();
 		  resultListBearish.clear();
 		  service1 = new Service<Void>() {
 		    CandleScanner c=new CandleScanner(SelectedExchange);
@@ -180,6 +183,8 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 		                    @Override
 		                   protected Void call() throws Exception {
 		                       for(int i=0;i<toScanList.size();i++){
+		                    	 System.out.println(".....................");
+		                    	 System.out.println("Scanning ::"+toScanList.get(i).getName());
 		                         c.setData(toScanList.get(i));
 		                         if (isCancelled()) {
 		                             updateProgressText();
@@ -198,7 +203,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 		                          updateProgressText(i,j);
 		                          updateResultText(c.getScanResult(),i); 
 		                          try{
-		                           Thread.sleep(400);
+		                           Thread.sleep(1000);
 		                          }catch(Exception e){}
 		                          }                     
 		                       }   
@@ -220,7 +225,7 @@ public class CandleScannerOnePass extends CandleScanTemplate {
 	*/
 	private void release(){
 	  super.IsCandleScanning=false;
-	  algoSelector.setDisable(false);
+	  algoSelector.setDisable(false); 
 	  inputTab.setClosable(true);
 	  inputTab.getContent().setDisable(false);
 	  outputTab.setClosable(false);
